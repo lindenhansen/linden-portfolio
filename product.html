@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Linden Hansen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon/favicon.png">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root { color-scheme: light; }
+
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: 'IM Fell English', serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    a { color: #000000; text-decoration: none; }
+    a:hover { color: #49739D; text-decoration: none; }
+
+    /* ── HEADER ───────────────────────────────────────────── */
+
+    header {
+      height: 76px;
+      text-align: center;
+      padding: 28px 0 0;
+    }
+
+    .logo-link { display: inline-block; line-height: 0; }
+    .logo-link:hover { color: inherit; }
+    .logo-link img { height: 44px; width: auto; display: block; transition: filter 0.2s ease; }
+    .logo-link:hover img { filter: brightness(0) saturate(100%) invert(43%) sepia(16%) saturate(1109%) hue-rotate(175deg) brightness(93%); }
+
+    /* ── THREE-COLUMN LAYOUT ──────────────────────────────── */
+
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: calc(100vh - 76px);
+      overflow: hidden;
+    }
+
+    /* ── LEFT COLUMN: persistent nav ─────────────────────── */
+
+    .col-left {
+      padding-top: 33vh;
+      padding-left: 3.5vw;
+      padding-right: 1.5vw;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: 18px;
+      row-gap: 14px;
+      align-items: baseline;
+    }
+
+    .cat {
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.3;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .desc {
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: justify;
+    }
+
+    .nav-spacer { grid-column: 1 / -1; height: 14px; }
+    .ext-pad { display: block; }
+    .ext { font-style: italic; font-size: 13px; line-height: 1.65; }
+
+    /* ── MIDDLE COLUMN: justified moodboard ──────────────── */
+
+    .col-mid {
+      padding: 1.5vw;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .moodboard {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      overflow: hidden;
+    }
+
+    .mb-row {
+      display: flex;
+      gap: 3px;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .mb-row a {
+      display: block;
+      overflow: hidden;
+      min-width: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .mb-row a:hover {
+      transform: scale(0.97);
+    }
+
+    .mb-row img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── RIGHT COLUMN: hover label ────────────────────────── */
+
+    .col-right {
+      padding: 1.5vw;
+      padding-top: 33vh;
+    }
+
+    .hover-label {
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #000000;
+    }
+
+
+    /* ── MOBILE ───────────────────────────────────────────── */
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #000000;
+      padding: 0 4px;
+      line-height: 1;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .nav-close {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        position: relative;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      /* Nav slides over full screen */
+      .col-left {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #ffffff;
+        z-index: 500;
+        padding: 80px 8vw 8vw;
+        overflow-y: auto;
+        padding-top: 80px;
+      }
+
+      .col-left.nav-open {
+        display: block;
+      }
+
+      .nav-close {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #000000;
+        font-family: 'IM Fell English', serif;
+        padding: 0;
+        line-height: 1;
+      }
+
+      /* Single-column layout */
+      .page {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      body {
+        height: auto !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .col-right {
+        display: none !important;
+      }
+
+      .col-mid {
+        height: auto !important;
+        overflow: visible !important;
+        min-height: calc(100vh - 76px);
+        padding: 1.5vh 4vw;
+      }
+
+      /* Moodboard: stack all images vertically */
+      .moodboard {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .mb-row {
+        flex: none !important;
+        flex-direction: column;
+        height: auto !important;
+      }
+
+      .mb-row a,
+      .mb-item {
+        flex: none !important;
+        width: 100% !important;
+      }
+
+      .mb-row a img,
+      .mb-item img,
+      .mb-row img {
+        height: auto !important;
+        object-fit: contain !important;
+        width: 100% !important;
+      }
+
+      /* Single images in scrollable pages */
+      .col-mid > img,
+      .col-mid .row-2 img,
+      .col-mid .row-3 img,
+      .col-mid .row-4 img,
+      .col-mid .grid-2x2 img,
+      .col-mid .grid-3x2 img,
+      .col-mid .navy-bg img,
+      .thumb {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      /* Multi-image rows become single column */
+      .row-2, .row-3, .row-4 {
+        flex-direction: column !important;
+      }
+
+      .row-2 img, .row-3 img, .row-4 img {
+        width: 100% !important;
+        flex: none !important;
+      }
+
+      /* Greeting */
+      .greeting {
+        font-size: clamp(36px, 14vw, 72px) !important;
+      }
+
+      /* Under construction */
+      .col-mid p {
+        padding-top: 40vh;
+      }
+
+      /* Bio image */
+      .col-mid img {
+        height: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="about.html" class="logo-link">
+      <img src="logo/logo.png" alt="CB">
+    </a>
+  <button class="hamburger" id="hamburger">&#9776;</button>
+  </header>
+
+  <div class="page">
+
+    <!-- LEFT: persistent navigation -->
+    <div class="col-left">
+      <button class="nav-close" id="nav-close">&#x2715;</button>
+      <div class="nav-grid">
+
+        <a class="cat" href="product.html">PRODUCT</a>
+        <span class="desc">Building things for humans.</span>
+
+        <a class="cat" href="design.html">DESIGN</a>
+        <span class="desc">Playing with color, space, word, and tone.</span>
+
+        <a class="cat" href="research.html">RESEARCH</a>
+        <span class="desc">Always learning.</span>
+
+        <a class="cat" href="other.html">OTHER</a>
+        <span class="desc">Just for fun.</span>
+
+        <a class="cat" href="photo.html">PHOTO</a>
+        <span class="desc">Capturing life and loved ones.</span>
+
+        <div class="nav-spacer"></div>
+
+        <span class="ext-pad"></span>
+        <a class="ext" href="bio.html">BIO</a>
+
+        <span class="ext-pad"></span>
+        <a class="ext" href="https://brandnewgirl.substack.com/" target="_blank">SUBSTACK</a>
+
+        <span class="ext-pad"></span>
+        <a class="ext" href="https://www.are.na/linden-hansen/channels" target="_blank">ARE.NA</a>
+
+        <span class="ext-pad"></span>
+        <a class="ext" href="https://www.linkedin.com/in/linden-hansen/" target="_blank">LINKEDIN</a>
+
+        <span class="ext-pad"></span>
+        <a class="ext" href="mailto:lindenh@stanford.edu">EMAIL</a>
+
+      </div>
+    </div>
+
+    <!-- MIDDLE: justified moodboard, no scroll, no cropping -->
+    <div class="col-mid">
+      <div class="moodboard">
+
+        <!-- Row 1: on-call + oracle -->
+        <div class="mb-row">
+          <a href="oncall.html" style="flex: 1.480" data-label="On Call Café">
+            <img src="product/R1-04081-0004.JPG" alt="On Call Café">
+          </a>
+          <a href="https://lindenhansen.github.io/wellness-oracle/" target="_blank" style="flex: 1.542" data-label="Oracle">
+            <img src="product/product-2.png" alt="Oracle">
+          </a>
+        </div>
+
+        <!-- Row 2: bopbop, full width -->
+        <div class="mb-row">
+          <a href="bopbop.html" style="flex: 1.135" data-label="BopBop">
+            <img src="product/product-4.png" alt="BopBop">
+          </a>
+        </div>
+
+        <!-- Row 3: illustration + curious cardinals -->
+        <div class="mb-row">
+          <a href="https://fixaitions.com/" target="_blank" style="flex: 0.430" data-label="Fix-ai-tions">
+            <img src="product/product-5.png" alt="Fix-ai-tions">
+          </a>
+          <a href="curiouscardinals.html" style="flex: 1.238" data-label="Curious Cardinals">
+            <img src="product/product-6.png" alt="Curious Cardinals">
+          </a>
+        </div>
+
+        <!-- Row 4: ask away alone -->
+        <div class="mb-row">
+          <a href="askaway.html" style="flex: 2.560" data-label="Ask Away">
+            <img src="product/product-3.png" alt="Ask Away">
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: hover description -->
+    <div class="col-right">
+      <p class="hover-label" id="hover-label"></p>
+    </div>
+
+  </div>
+
+  <script>
+    const label = document.getElementById('hover-label');
+    document.querySelectorAll('.mb-row a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        label.textContent = link.dataset.label;
+      });
+      link.addEventListener('mouseleave', () => {
+        label.textContent = '';
+      });
+    });
+  </script>
+
+
+  <script>
+    // Mobile nav toggle
+    (function() {
+      const hamburger = document.getElementById('hamburger');
+      const colLeft   = document.querySelector('.col-left');
+      const navClose  = document.getElementById('nav-close');
+      if (!hamburger || !colLeft) return;
+      hamburger.addEventListener('click', () => colLeft.classList.toggle('nav-open'));
+      if (navClose) navClose.addEventListener('click', () => colLeft.classList.remove('nav-open'));
+      colLeft.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => colLeft.classList.remove('nav-open'));
+      });
+    })();
+  </script>
+</body>
+</html>
