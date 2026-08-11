@@ -377,6 +377,9 @@
     <!-- MIDDLE: first-page thumbnails -->
     <div class="col-mid">
 
+      <img class="thumb" src="photography/slides/nyc_summer_26-p1.jpg"
+           alt="NYC Summer '26" data-set="nyc_summer_26" data-pages="23" data-ext="jpg" data-label="NYC Summer '26">
+
       <img class="thumb" src="photography/slides/college_113_final_creative_project-p1.png"
            alt="Cara in a Field" data-set="college_113_final_creative_project" data-pages="16" data-label="Cara in a Field">
 
@@ -414,10 +417,10 @@
     let slides  = [];
     let current = 0;
 
-    function buildSlides(set, pages) {
+    function buildSlides(set, pages, ext) {
       slides = [];
       for (let i = 1; i <= pages; i++) {
-        slides.push(`photography/slides/${set}-p${i}.png`);
+        slides.push(`photography/slides/${set}-p${i}.${ext}`);
       }
     }
 
@@ -435,8 +438,8 @@
       updateArrows();
     }
 
-    function open(set, pages) {
-      buildSlides(set, pages);
+    function open(set, pages, ext) {
+      buildSlides(set, pages, ext);
       current = 0;
       lbImg.src = slides[0];
       lightbox.classList.add('open');
@@ -450,7 +453,7 @@
     const label = document.getElementById('hover-label');
 
     document.querySelectorAll('.thumb').forEach(img => {
-      img.addEventListener('click', () => open(img.dataset.set, +img.dataset.pages));
+      img.addEventListener('click', () => open(img.dataset.set, +img.dataset.pages, img.dataset.ext || 'png'));
       img.addEventListener('mouseenter', () => label.textContent = img.dataset.label);
       img.addEventListener('mouseleave', () => label.textContent = '');
     });
