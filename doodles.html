@@ -94,10 +94,20 @@
       gap: 3px;
     }
 
-    .col-mid img {
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .gallery img {
       display: block;
-      width: 100%;
-      height: auto;
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(0.97);
     }
 
     /* ── RIGHT COLUMN: project description ───────────────── */
@@ -116,6 +126,42 @@
 
     .project-desc p + p {
       margin-top: 1.2em;
+    }
+
+    /* ── LIGHTBOX ─────────────────────────────────────────── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+    }
+
+    .lightbox-inner {
+      position: relative;
+      z-index: 1000;
+      max-width: 72vw;
+      max-height: 82vh;
+      overflow: hidden;
+    }
+
+    .lightbox-inner img {
+      display: block;
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
     }
 
 
@@ -283,16 +329,18 @@
       </div>
     </div>
 
-    <!-- MIDDLE: one image per row, scrollable -->
+    <!-- MIDDLE: justified gallery, scrollable -->
     <div class="col-mid">
-      <img src="other/doodles/doodles1-p1.png" alt="Doodle 1">
-      <img src="other/doodles/doodles2-p1.png" alt="Doodle 2">
-      <img src="other/doodles/doodles3-p1.png" alt="Doodle 3">
-      <img src="other/doodles/doodles4-p1.png" alt="Doodle 4">
-      <img src="other/doodles/doodles5.png" alt="Doodle 5">
-      <img src="other/doodles/doodles6.png" alt="Doodle 6">
-      <img src="other/doodles/doodles7.png" alt="Doodle 7">
-      <img src="other/doodles/doodles8.png" alt="Doodle 8">
+      <div class="gallery" id="gallery">
+        <img src="other/doodles/doodles1-p1.png" alt="Doodle 1" data-ratio="1.4783">
+        <img src="other/doodles/doodles2-p1.png" alt="Doodle 2" data-ratio="1.7895">
+        <img src="other/doodles/doodles3-p1.png" alt="Doodle 3" data-ratio="1.4392">
+        <img src="other/doodles/doodles4-p1.png" alt="Doodle 4" data-ratio="1.5753">
+        <img src="other/doodles/doodles5.png" alt="Doodle 5" data-ratio="1.4090">
+        <img src="other/doodles/doodles6.png" alt="Doodle 6" data-ratio="1.3240">
+        <img src="other/doodles/doodles7.png" alt="Doodle 7" data-ratio="1.5430">
+        <img src="other/doodles/doodles8.png" alt="Doodle 8" data-ratio="1.4170">
+      </div>
     </div>
 
     <!-- RIGHT: project description -->
@@ -303,6 +351,90 @@
     </div>
 
   </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-overlay" id="lb-overlay"></div>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    // Justified gallery layout (no cropping — each row scaled to a shared height)
+    (function() {
+      const gallery = document.getElementById('gallery');
+      if (!gallery) return;
+      const imgs = Array.from(gallery.querySelectorAll('img'));
+      const gap = 4;
+      const targetHeight = 220;
+      const maxHeight = 340;
+
+      function layout() {
+        const containerWidth = gallery.clientWidth;
+        let row = [];
+        let rowAspectSum = 0;
+
+        function finalizeRow(stretch) {
+          if (!row.length) return;
+          let rowHeight = targetHeight;
+          if (stretch) {
+            rowHeight = Math.min(maxHeight, (containerWidth - gap * (row.length - 1)) / rowAspectSum);
+          }
+          row.forEach(img => {
+            const ratio = parseFloat(img.dataset.ratio);
+            img.style.width = (ratio * rowHeight) + 'px';
+            img.style.height = rowHeight + 'px';
+          });
+          row = [];
+          rowAspectSum = 0;
+        }
+
+        imgs.forEach((img, i) => {
+          const ratio = parseFloat(img.dataset.ratio);
+          row.push(img);
+          rowAspectSum += ratio;
+          const rowWidthAtTarget = rowAspectSum * targetHeight + gap * (row.length - 1);
+          if (rowWidthAtTarget >= containerWidth) {
+            finalizeRow(true);
+          } else if (i === imgs.length - 1) {
+            finalizeRow(false);
+          }
+        });
+      }
+
+      layout();
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(layout, 100);
+      });
+    })();
+  </script>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+
+    function openImg(src) {
+      lbImg.src = src;
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+    }
+
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => openImg(img.src));
+    });
+
+    document.getElementById('lb-overlay').addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 
 
   <script>
