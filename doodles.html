@@ -95,13 +95,17 @@
     }
 
     .gallery {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-auto-rows: 150px;
       gap: 4px;
     }
 
     .gallery img {
       display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       cursor: zoom-in;
       transition: transform 0.2s ease;
     }
@@ -332,14 +336,14 @@
     <!-- MIDDLE: justified gallery, scrollable -->
     <div class="col-mid">
       <div class="gallery" id="gallery">
-        <img src="other/doodles/doodles1-p1.png" alt="Doodle 1" data-ratio="1.4783">
-        <img src="other/doodles/doodles2-p1.png" alt="Doodle 2" data-ratio="1.7895">
-        <img src="other/doodles/doodles3-p1.png" alt="Doodle 3" data-ratio="1.4392">
-        <img src="other/doodles/doodles4-p1.png" alt="Doodle 4" data-ratio="1.5753">
-        <img src="other/doodles/doodles5.png" alt="Doodle 5" data-ratio="1.4090">
-        <img src="other/doodles/doodles6.png" alt="Doodle 6" data-ratio="1.3240">
-        <img src="other/doodles/doodles7.png" alt="Doodle 7" data-ratio="1.5430">
-        <img src="other/doodles/doodles8.png" alt="Doodle 8" data-ratio="1.4170">
+        <img src="other/doodles/doodles1-p1.png" alt="Doodle 1">
+        <img src="other/doodles/doodles2-p1.png" alt="Doodle 2">
+        <img src="other/doodles/doodles3-p1.png" alt="Doodle 3">
+        <img src="other/doodles/doodles4-p1.png" alt="Doodle 4">
+        <img src="other/doodles/doodles5.png" alt="Doodle 5">
+        <img src="other/doodles/doodles6.png" alt="Doodle 6">
+        <img src="other/doodles/doodles7.png" alt="Doodle 7">
+        <img src="other/doodles/doodles8.png" alt="Doodle 8">
       </div>
     </div>
 
@@ -359,58 +363,6 @@
       <img id="lb-img" src="" alt="">
     </div>
   </div>
-
-  <script>
-    // Justified gallery layout (no cropping — each row scaled to a shared height)
-    (function() {
-      const gallery = document.getElementById('gallery');
-      if (!gallery) return;
-      const imgs = Array.from(gallery.querySelectorAll('img'));
-      const gap = 4;
-      const targetHeight = 220;
-      const maxHeight = 340;
-
-      function layout() {
-        const containerWidth = gallery.clientWidth;
-        let row = [];
-        let rowAspectSum = 0;
-
-        function finalizeRow(stretch) {
-          if (!row.length) return;
-          let rowHeight = targetHeight;
-          if (stretch) {
-            rowHeight = Math.min(maxHeight, (containerWidth - gap * (row.length - 1)) / rowAspectSum);
-          }
-          row.forEach(img => {
-            const ratio = parseFloat(img.dataset.ratio);
-            img.style.width = (ratio * rowHeight) + 'px';
-            img.style.height = rowHeight + 'px';
-          });
-          row = [];
-          rowAspectSum = 0;
-        }
-
-        imgs.forEach((img, i) => {
-          const ratio = parseFloat(img.dataset.ratio);
-          row.push(img);
-          rowAspectSum += ratio;
-          const rowWidthAtTarget = rowAspectSum * targetHeight + gap * (row.length - 1);
-          if (rowWidthAtTarget >= containerWidth) {
-            finalizeRow(true);
-          } else if (i === imgs.length - 1) {
-            finalizeRow(false);
-          }
-        });
-      }
-
-      layout();
-      let resizeTimer;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(layout, 100);
-      });
-    })();
-  </script>
 
   <script>
     const lightbox = document.getElementById('lightbox');
