@@ -84,33 +84,55 @@
     .ext-pad { display: block; }
     .ext { font-style: italic; font-size: 13px; line-height: 1.65; }
 
-    /* ── MIDDLE COLUMN: scrollable image stack ────────────── */
+    /* ── MIDDLE COLUMN: justified gallery, no scroll ─────────── */
 
     .col-mid {
       padding: 1.5vw;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /*
+      Justified gallery: images arranged in 3 rows.
+      Each row's flex value is proportional to its target height,
+      derived from the aspect ratios of images it contains.
+
+      Row 1 (h≈27): doodle1(1.4783) + doodle2(1.7895) + doodle3(1.4392) → sum 4.71
+      Row 2 (h≈30): doodle4(1.5753) + doodle5(1.4090) + doodle6(1.3240) → sum 4.31
+      Row 3 (h≈43): doodle7(1.5430) + doodle8(1.4170)                   → sum 2.96
+    */
+
+    .gallery {
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 3px;
+      overflow: hidden;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      grid-auto-rows: 150px;
-      gap: 4px;
+    .gallery-row {
+      display: flex;
+      gap: 3px;
+      min-height: 0;
     }
 
-    .gallery img {
+    .gallery-row:nth-child(1) { flex: 27; }
+    .gallery-row:nth-child(2) { flex: 30; }
+    .gallery-row:nth-child(3) { flex: 43; }
+
+    /* Each img has inline style="flex: <aspect-ratio>" */
+    .gallery-row img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      min-width: 0;
       cursor: zoom-in;
       transition: transform 0.2s ease;
     }
 
-    .gallery img:hover {
+    .gallery-row img:hover {
       transform: scale(0.97);
     }
 
@@ -255,24 +277,23 @@
         padding: 1.5vh 4vw;
       }
 
-      /* Single images in scrollable pages */
-      .col-mid > img,
-      .col-mid .row-2 img,
-      .col-mid .row-3 img,
-      .col-mid .row-4 img,
-      .thumb {
-        width: 100% !important;
+      /* Gallery: stack all doodles vertically, uncropped */
+      .gallery {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .gallery-row {
+        flex: none !important;
+        flex-direction: column;
         height: auto !important;
       }
 
-      /* Multi-image rows become single column */
-      .row-2, .row-3, .row-4 {
-        flex-direction: column !important;
-      }
-
-      .row-2 img, .row-3 img, .row-4 img {
-        width: 100% !important;
+      .gallery-row img {
         flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
       }
     }
   </style>
@@ -333,17 +354,27 @@
       </div>
     </div>
 
-    <!-- MIDDLE: justified gallery, scrollable -->
+    <!-- MIDDLE: justified gallery, no scroll, cropped to fit -->
     <div class="col-mid">
-      <div class="gallery" id="gallery">
-        <img src="other/doodles/doodles1-p1.png" alt="Doodle 1">
-        <img src="other/doodles/doodles2-p1.png" alt="Doodle 2">
-        <img src="other/doodles/doodles3-p1.png" alt="Doodle 3">
-        <img src="other/doodles/doodles4-p1.png" alt="Doodle 4">
-        <img src="other/doodles/doodles5.png" alt="Doodle 5">
-        <img src="other/doodles/doodles6.png" alt="Doodle 6">
-        <img src="other/doodles/doodles7.png" alt="Doodle 7">
-        <img src="other/doodles/doodles8.png" alt="Doodle 8">
+      <div class="gallery">
+
+        <div class="gallery-row">
+          <img src="other/doodles/doodles1-p1.png" alt="Doodle 1" style="flex: 1.4783">
+          <img src="other/doodles/doodles2-p1.png" alt="Doodle 2" style="flex: 1.7895">
+          <img src="other/doodles/doodles3-p1.png" alt="Doodle 3" style="flex: 1.4392">
+        </div>
+
+        <div class="gallery-row">
+          <img src="other/doodles/doodles4-p1.png" alt="Doodle 4" style="flex: 1.5753">
+          <img src="other/doodles/doodles5.png" alt="Doodle 5" style="flex: 1.4090">
+          <img src="other/doodles/doodles6.png" alt="Doodle 6" style="flex: 1.3240">
+        </div>
+
+        <div class="gallery-row">
+          <img src="other/doodles/doodles7.png" alt="Doodle 7" style="flex: 1.5430">
+          <img src="other/doodles/doodles8.png" alt="Doodle 8" style="flex: 1.4170">
+        </div>
+
       </div>
     </div>
 
@@ -377,7 +408,7 @@
       lightbox.classList.remove('open');
     }
 
-    document.querySelectorAll('.gallery img').forEach(img => {
+    document.querySelectorAll('.gallery-row img').forEach(img => {
       img.addEventListener('click', () => openImg(img.src));
     });
 
