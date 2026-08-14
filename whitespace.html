@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strategy — Linden Hansen</title>
+  <title>Whitespace — Linden Hansen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -94,24 +94,13 @@
       gap: 3px;
     }
 
-    .col-mid a {
-      display: block;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
-
-    .col-mid a:hover {
-      transform: scale(0.97);
-    }
-
-    .col-mid a img {
+    .col-mid img {
       display: block;
       width: 100%;
       height: auto;
     }
 
-    /* ── RIGHT COLUMN: hover label ────────────────────────── */
+    /* ── RIGHT COLUMN: hover / default description ─────────── */
 
     .col-right {
       padding: 1.5vw;
@@ -212,7 +201,7 @@
         padding: 1.5vh 4vw;
       }
 
-      .col-mid a img {
+      .col-mid img {
         width: 100% !important;
         height: auto !important;
       }
@@ -275,30 +264,39 @@
       </div>
     </div>
 
-    <!-- MIDDLE: scrollable, one project per row -->
+    <!-- MIDDLE: scrollable sequence of all whitespace images, in order -->
     <div class="col-mid">
-
-      <a href="whitespace.html" data-label="Bullish Miura whitespace project.">
-        <img src="whitespace/whitespace12.png" alt="Bullish Miura whitespace project">
-      </a>
-
+      <img src="whitespace/whitespace1.png" alt="Whitespace 1" data-label="">
+      <img src="whitespace/whitespace2.png" alt="Whitespace 2" data-label="">
+      <img src="whitespace/whitespace3.png" alt="Whitespace 3" data-label="">
+      <img src="whitespace/whitespace4.png" alt="Whitespace 4" data-label="">
+      <img src="whitespace/whitespace5.png" alt="Whitespace 5" data-label="">
+      <img src="whitespace/whitespace6.png" alt="Whitespace 6" data-label="">
+      <img src="whitespace/whitespace7.png" alt="Whitespace 7" data-label="">
+      <img src="whitespace/whitespace8.png" alt="Whitespace 8" data-label="">
+      <img src="whitespace/whitespace9.png" alt="Whitespace 9" data-label="">
+      <img src="whitespace/whitespace10.png" alt="Whitespace 10" data-label="">
+      <img src="whitespace/whitespace11.png" alt="Whitespace 11" data-label="">
+      <img src="whitespace/whitespace12.png" alt="Whitespace 12" data-label="">
     </div>
 
-    <!-- RIGHT: hover description -->
+    <!-- RIGHT: default description, replaced by hover text per image -->
     <div class="col-right">
-      <p class="hover-label" id="hover-label"></p>
+      <p class="hover-label" id="hover-label">Every year at Bullish, interns are asked to identify a whitespace in consumer culture and pitch it to the Bullish team. Considering the deterioration of cognitive health and the rising popularity of surveillance-leaning health technology, I envisioned The Box and The Mind.</p>
     </div>
 
   </div>
 
   <script>
     const label = document.getElementById('hover-label');
-    document.querySelectorAll('.col-mid a').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        label.textContent = link.dataset.label;
+    const defaultLabel = label.textContent;
+
+    document.querySelectorAll('.col-mid img').forEach(img => {
+      img.addEventListener('mouseenter', () => {
+        if (img.dataset.label) label.textContent = img.dataset.label;
       });
-      link.addEventListener('mouseleave', () => {
-        label.textContent = '';
+      img.addEventListener('mouseleave', () => {
+        label.textContent = defaultLabel;
       });
     });
   </script>
