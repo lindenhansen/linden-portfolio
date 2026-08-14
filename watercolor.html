@@ -98,6 +98,12 @@
       display: block;
       width: 100%;
       height: auto;
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+
+    .col-mid img:hover {
+      transform: scale(0.97);
     }
 
     /* ── RIGHT COLUMN: project description ───────────────── */
@@ -116,6 +122,42 @@
 
     .project-desc p + p {
       margin-top: 1.2em;
+    }
+
+    /* ── LIGHTBOX ─────────────────────────────────────────── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+    }
+
+    .lightbox-inner {
+      position: relative;
+      z-index: 1000;
+      max-width: 72vw;
+      max-height: 82vh;
+      overflow: hidden;
+    }
+
+    .lightbox-inner img {
+      display: block;
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
     }
 
 
@@ -289,7 +331,6 @@
       <img src="other/watercolor/watercolor2.png" alt="Watercolor 2">
       <img src="other/watercolor/watercolor3.png" alt="Watercolor 3">
       <img src="other/watercolor/watercolor4.png" alt="Watercolor 4">
-      <img src="other/watercolor/watercolor5.png" alt="Watercolor 5">
     </div>
 
     <!-- RIGHT: project description -->
@@ -300,6 +341,38 @@
     </div>
 
   </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-overlay" id="lb-overlay"></div>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+
+    function openImg(src) {
+      lbImg.src = src;
+      lightbox.classList.add('open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+    }
+
+    document.querySelectorAll('.col-mid img').forEach(img => {
+      img.addEventListener('click', () => openImg(img.src));
+    });
+
+    document.getElementById('lb-overlay').addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 
 
   <script>
