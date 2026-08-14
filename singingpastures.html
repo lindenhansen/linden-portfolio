@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strategy — Linden Hansen</title>
+  <title>Singing Pastures — Linden Hansen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -111,7 +111,7 @@
       height: auto;
     }
 
-    /* ── RIGHT COLUMN: hover label ────────────────────────── */
+    /* ── RIGHT COLUMN: hover / default description ─────────── */
 
     .col-right {
       padding: 1.5vw;
@@ -275,34 +275,40 @@
       </div>
     </div>
 
-    <!-- MIDDLE: scrollable, one project per row -->
+    <!-- MIDDLE: scrollable, one big idea per row -->
     <div class="col-mid">
 
-      <a href="singingpastures.html" data-label="Singing Pastures go-to-market strategy.">
-        <img src="sp-big-ideas/creative-brief-three-ways.png" alt="Singing Pastures go-to-market strategy">
+      <a href="craftthecrave.html" data-label="Craft the Crave">
+        <img src="sp-big-ideas/craft-the-crave.png" alt="Craft the Crave">
       </a>
 
-      <a href="whitespace.html" data-label="Bullish Miura whitespace project.">
-        <img src="whitespace/whitespace12.png" alt="Bullish Miura whitespace project">
+      <a href="lifebetweenbites.html" data-label="Life Between Bites">
+        <img src="sp-big-ideas/life-between-bites.png" alt="Life Between Bites">
+      </a>
+
+      <a href="jointhechorus.html" data-label="Join the Chorus">
+        <img src="sp-big-ideas/join-the-chorus.png" alt="Join the Chorus">
       </a>
 
     </div>
 
-    <!-- RIGHT: hover description -->
+    <!-- RIGHT: default description, replaced by title on hover -->
     <div class="col-right">
-      <p class="hover-label" id="hover-label"></p>
+      <p class="hover-label" id="hover-label">As an intern at Bullish, I was tasked with producing the first go-to-market strategy for Singing Pastures, one of Bullish's portfolio companies. We came up with three big ideas.</p>
     </div>
 
   </div>
 
   <script>
     const label = document.getElementById('hover-label');
+    const defaultLabel = label.textContent;
+
     document.querySelectorAll('.col-mid a').forEach(link => {
       link.addEventListener('mouseenter', () => {
         label.textContent = link.dataset.label;
       });
       link.addEventListener('mouseleave', () => {
-        label.textContent = '';
+        label.textContent = defaultLabel;
       });
     });
   </script>

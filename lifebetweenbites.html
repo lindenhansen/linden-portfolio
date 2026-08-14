@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Strategy — Linden Hansen</title>
+  <title>Life Between Bites — Linden Hansen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -28,8 +28,6 @@
     a { color: #000000; text-decoration: none; }
     a:hover { color: #49739D; text-decoration: none; }
 
-    /* ── HEADER ───────────────────────────────────────────── */
-
     header {
       height: 76px;
       text-align: center;
@@ -41,16 +39,12 @@
     .logo-link img { height: 44px; width: auto; display: block; transition: filter 0.2s ease; }
     .logo-link:hover img { filter: brightness(0) saturate(100%) invert(43%) sepia(16%) saturate(1109%) hue-rotate(175deg) brightness(93%); }
 
-    /* ── THREE-COLUMN LAYOUT ──────────────────────────────── */
-
     .page {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       height: calc(100vh - 76px);
       overflow: hidden;
     }
-
-    /* ── LEFT COLUMN: persistent nav ─────────────────────── */
 
     .col-left {
       padding-top: 33vh;
@@ -84,45 +78,21 @@
     .ext-pad { display: block; }
     .ext { font-style: italic; font-size: 13px; line-height: 1.65; }
 
-    /* ── MIDDLE COLUMN: scrollable image stack ────────────── */
-
     .col-mid {
-      padding: 1.5vw;
-      overflow-y: auto;
       display: flex;
-      flex-direction: column;
-      gap: 3px;
+      align-items: center;
+      justify-content: center;
     }
 
-    .col-mid a {
-      display: block;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
+    .col-mid p {
+      font-style: italic;
+      font-size: 13px;
+      color: #000000;
     }
-
-    .col-mid a:hover {
-      transform: scale(0.97);
-    }
-
-    .col-mid a img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* ── RIGHT COLUMN: hover label ────────────────────────── */
 
     .col-right {
       padding: 1.5vw;
       padding-top: 33vh;
-    }
-
-    .hover-label {
-      font-style: normal;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #000000;
     }
 
 
@@ -156,7 +126,6 @@
         display: block;
       }
 
-      /* Nav slides over full screen */
       .col-left {
         display: none;
         position: fixed;
@@ -187,7 +156,6 @@
         line-height: 1;
       }
 
-      /* Single-column layout */
       .page {
         grid-template-columns: 1fr !important;
         height: auto !important;
@@ -212,9 +180,8 @@
         padding: 1.5vh 4vw;
       }
 
-      .col-mid a img {
-        width: 100% !important;
-        height: auto !important;
+      .col-mid p {
+        padding-top: 40vh;
       }
     }
   </style>
@@ -230,7 +197,6 @@
 
   <div class="page">
 
-    <!-- LEFT: persistent navigation -->
     <div class="col-left">
       <button class="nav-close" id="nav-close">&#x2715;</button>
       <div class="nav-grid">
@@ -275,38 +241,13 @@
       </div>
     </div>
 
-    <!-- MIDDLE: scrollable, one project per row -->
     <div class="col-mid">
-
-      <a href="singingpastures.html" data-label="Singing Pastures go-to-market strategy.">
-        <img src="sp-big-ideas/creative-brief-three-ways.png" alt="Singing Pastures go-to-market strategy">
-      </a>
-
-      <a href="whitespace.html" data-label="Bullish Miura whitespace project.">
-        <img src="whitespace/whitespace12.png" alt="Bullish Miura whitespace project">
-      </a>
-
+      <p>under construction</p>
     </div>
 
-    <!-- RIGHT: hover description -->
-    <div class="col-right">
-      <p class="hover-label" id="hover-label"></p>
-    </div>
+    <div class="col-right"></div>
 
   </div>
-
-  <script>
-    const label = document.getElementById('hover-label');
-    document.querySelectorAll('.col-mid a').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        label.textContent = link.dataset.label;
-      });
-      link.addEventListener('mouseleave', () => {
-        label.textContent = '';
-      });
-    });
-  </script>
-
 
   <script>
     // Mobile nav toggle
