@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design — Linden Hansen</title>
+  <title>Slate Package Design — Linden Hansen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -94,8 +94,7 @@
       gap: 3px;
     }
 
-    /* single full-width images */
-    .col-mid > img {
+    .col-mid img {
       display: block;
       width: 100%;
       height: auto;
@@ -103,33 +102,13 @@
       transition: transform 0.2s ease;
     }
 
-    .col-mid > img:hover {
+    .col-mid img:hover {
       transform: scale(0.97);
     }
 
-    /* full-width link tiles (project cards) */
-    .col-mid > a {
-      display: block;
-      overflow: hidden;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
-
-    .col-mid > a:hover {
-      transform: scale(0.97);
-    }
-
-    .col-mid > a img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* 3.1–3.3: 1×3 row */
     .row-3 {
       display: flex;
       gap: 3px;
-      align-items: flex-start;
     }
 
     .row-3 img {
@@ -137,41 +116,24 @@
       min-width: 0;
       width: 0;
       height: auto;
-      display: block;
-      cursor: zoom-in;
-      transition: transform 0.2s ease;
     }
 
-    .row-3 img:hover {
-      transform: scale(0.97);
-    }
-
-    /* 6.1–6.2: 1×2 row */
-    .row-2 {
-      display: flex;
-      gap: 3px;
-      align-items: flex-start;
-    }
-
-    .row-2 img {
-      flex: 1;
-      min-width: 0;
-      width: 0;
-      height: auto;
-      display: block;
-      cursor: zoom-in;
-      transition: transform 0.2s ease;
-    }
-
-    .row-2 img:hover {
-      transform: scale(0.97);
-    }
-
-    /* ── RIGHT COLUMN ─────────────────────────────────────── */
+    /* ── RIGHT COLUMN: project description ───────────────── */
 
     .col-right {
       padding: 1.5vw;
       padding-top: 33vh;
+    }
+
+    .project-desc {
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #000000;
+    }
+
+    .project-desc p + p {
+      margin-top: 1.2em;
     }
 
     /* ── LIGHTBOX ─────────────────────────────────────────── */
@@ -208,11 +170,6 @@
       max-width: 100%;
       max-height: 82vh;
       object-fit: contain;
-    }
-
-    .lightbox-inner img.lb-scale2 {
-      transform: scale(2);
-      transform-origin: center center;
     }
 
 
@@ -302,68 +259,18 @@
         padding: 1.5vh 4vw;
       }
 
-      /* Moodboard: stack all images vertically */
-      .moodboard {
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .mb-row {
-        flex: none !important;
-        flex-direction: column;
-        height: auto !important;
-      }
-
-      .mb-row a,
-      .mb-item {
-        flex: none !important;
-        width: 100% !important;
-      }
-
-      .mb-row a img,
-      .mb-item img,
-      .mb-row img {
-        height: auto !important;
-        object-fit: contain !important;
-        width: 100% !important;
-      }
-
-      /* Single images in scrollable pages */
       .col-mid > img,
-      .col-mid .row-2 img,
-      .col-mid .row-3 img,
-      .col-mid .row-4 img,
-      .col-mid .grid-2x2 img,
-      .col-mid .grid-3x2 img,
-      .col-mid .navy-bg img,
-      .thumb {
+      .row-3 img {
         width: 100% !important;
         height: auto !important;
       }
 
-      /* Multi-image rows become single column */
-      .row-2, .row-3, .row-4 {
+      .row-3 {
         flex-direction: column !important;
       }
 
-      .row-2 img, .row-3 img, .row-4 img {
-        width: 100% !important;
+      .row-3 img {
         flex: none !important;
-      }
-
-      /* Greeting */
-      .greeting {
-        font-size: clamp(36px, 14vw, 72px) !important;
-      }
-
-      /* Under construction */
-      .col-mid p {
-        padding-top: 40vh;
-      }
-
-      /* Bio image */
-      .col-mid img {
-        height: auto !important;
       }
     }
   </style>
@@ -424,37 +331,34 @@
       </div>
     </div>
 
-    <!-- MIDDLE: scrollable images in order -->
+    <!-- MIDDLE: scrollable sequence of package mockups -->
     <div class="col-mid">
+      <img src="slate-mockups/color-key.png" alt="Color key">
 
-      <img src="design/design4.png" alt="Bring Your Own Jar poster" data-label="BYOJ">
-
-      <a href="curiouscardinals.html" data-label="Curious Cardinals">
-        <img src="design/curiouscardinals.png" alt="Curious Cardinals">
-      </a>
-
-      <img src="design/design2.png" alt="Information design" data-label="Information design">
-
-      <div class="row-2" data-label="Visual frontiers t-shirt (DESIGN170)">
-        <img src="design/design6.1.png" alt="Design 6.1" data-label="Visual frontiers t-shirt (DESIGN170)">
-        <img src="design/design6.2.png" alt="Design 6.2" data-label="Visual frontiers t-shirt (DESIGN170)">
+      <div class="row-3">
+        <img src="slate-mockups/caramel-latte-20g.png" alt="Caramel Latte">
+        <img src="slate-mockups/chocolate-latte-20g.png" alt="Chocolate Latte">
+        <img src="slate-mockups/vanilla-latte-20g.png" alt="Vanilla Latte">
       </div>
 
-      <img src="design/design1.png" alt="Personal logo design" data-label="Personal logo design">
+      <div class="row-3">
+        <img src="slate-mockups/chocolate-milkshake-20g.png" alt="Chocolate Milkshake">
+        <img src="slate-mockups/strawberry-milkshake-20g.png" alt="Strawberry Milkshake">
+        <img src="slate-mockups/vanilla-milkshake-20g.png" alt="Vanilla Milkshake">
+      </div>
 
-      <a href="bullishmerch.html" data-label="Bullish Merch">
-        <img src="bullish-merch/tee-1.png" alt="Bullish Merch">
-      </a>
-
-      <a href="slatepackagedesign.html" data-label="Slate Package Design">
-        <img src="slate-mockups/color-key.png" alt="Slate Package Design">
-      </a>
-
+      <div class="row-3">
+        <img src="slate-mockups/chocolate-42g.png" alt="Chocolate 42g">
+        <img src="slate-mockups/salted-caramel-42g.png" alt="Salted Caramel 42g">
+        <img src="slate-mockups/vanilla-42g.png" alt="Vanilla 42g">
+      </div>
     </div>
 
-    <!-- RIGHT: hover label -->
+    <!-- RIGHT: project description -->
     <div class="col-right">
-      <p class="hover-label" id="hover-label" style="font-style:italic;font-size:13px;line-height:1.6;"></p>
+      <div class="project-desc">
+        <p>At Bullish, I designed mockup packaging for Slate Protein, one of Bullish's portfolio companies. I experimented with color as a flavor signal.</p>
+      </div>
     </div>
 
   </div>
@@ -471,31 +375,23 @@
     const lightbox = document.getElementById('lightbox');
     const lbImg    = document.getElementById('lb-img');
 
-    function openImg(src, scale) {
+    function openImg(src) {
       lbImg.src = src;
-      lbImg.classList.toggle('lb-scale2', scale === '2');
       lightbox.classList.add('open');
     }
 
-    function close() {
+    function closeLightbox() {
       lightbox.classList.remove('open');
     }
 
-    const label = document.getElementById('hover-label');
-
     document.querySelectorAll('.col-mid img').forEach(img => {
-      const isLink = img.closest('a');
-      if (!isLink) {
-        img.addEventListener('click', () => openImg(img.src, img.dataset.scale));
-      }
-      img.addEventListener('mouseenter', () => { if (img.dataset.label) label.textContent = img.dataset.label; });
-      img.addEventListener('mouseleave', () => label.textContent = '');
+      img.addEventListener('click', () => openImg(img.src));
     });
 
-    document.getElementById('lb-overlay').addEventListener('click', close);
+    document.getElementById('lb-overlay').addEventListener('click', closeLightbox);
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape') closeLightbox();
     });
   </script>
 
