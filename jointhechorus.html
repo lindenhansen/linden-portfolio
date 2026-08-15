@@ -79,20 +79,45 @@
     .ext { font-style: italic; font-size: 13px; line-height: 1.65; }
 
     .col-mid {
+      padding: 1.5vw;
+      overflow-y: auto;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .col-mid p {
-      font-style: italic;
-      font-size: 13px;
-      color: #000000;
+    .col-mid img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .row-2 {
+      display: flex;
+      gap: 3px;
+    }
+
+    .row-2 img {
+      flex: 1;
+      min-width: 0;
+      width: 0;
+      height: auto;
     }
 
     .col-right {
       padding: 1.5vw;
       padding-top: 33vh;
+    }
+
+    .project-desc {
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #000000;
+    }
+
+    .project-desc p + p {
+      margin-top: 1.2em;
     }
 
 
@@ -180,8 +205,18 @@
         padding: 1.5vh 4vw;
       }
 
-      .col-mid p {
-        padding-top: 40vh;
+      .col-mid > img,
+      .row-2 img {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .row-2 {
+        flex-direction: column !important;
+      }
+
+      .row-2 img {
+        flex: none !important;
       }
     }
   </style>
@@ -242,10 +277,27 @@
     </div>
 
     <div class="col-mid">
-      <p>under construction</p>
+      <img src="sp-big-ideas/idea-3/ad1.png" alt="Join the Chorus ad 1">
+      <img src="sp-big-ideas/idea-3/ad2.png" alt="Join the Chorus ad 2">
+      <img src="sp-big-ideas/idea-3/ad3.png" alt="Join the Chorus ad 3">
+      <img src="sp-big-ideas/idea-3/ad4.png" alt="Join the Chorus ad 4">
+      <img src="sp-big-ideas/idea-3/ad5.png" alt="Join the Chorus ad 5">
+      <img src="sp-big-ideas/idea-3/idea3ooh.png" alt="Join the Chorus OOH">
+      <div class="row-2">
+        <img src="sp-big-ideas/idea-3/idea3social1.png" alt="Join the Chorus social 1">
+        <img src="sp-big-ideas/idea-3/idea3social2.png" alt="Join the Chorus social 2">
+      </div>
     </div>
 
-    <div class="col-right"></div>
+    <div class="col-right">
+      <div class="project-desc">
+        <p>Our third big idea is Join the Chorus.</p>
+        <p>Getting protein in can feel like a chore, so let's trade the aisle for the pasture.</p>
+        <p>The name Singing Pastures isn't just an idea—it's a real landscape where restored ecosystems brought birdsongs back. A Singing Pastures in your pocket brings that joy with you wherever you go.</p>
+        <p>Protein feels like an obligation, and she wants an escape. We bring her to the pasture.</p>
+        <p>The tone is escapist, inviting, and enchanting.</p>
+      </div>
+    </div>
 
   </div>
 
