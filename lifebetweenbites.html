@@ -79,20 +79,64 @@
     .ext { font-style: italic; font-size: 13px; line-height: 1.65; }
 
     .col-mid {
+      padding: 1.5vw;
+      overflow-y: auto;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .col-mid p {
-      font-style: italic;
-      font-size: 13px;
-      color: #000000;
+    .col-mid img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* crossword (big, left) + puddles/bumps stacked right */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      aspect-ratio: 1.928;
+    }
+
+    .grid-layout img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .grid-layout .cell-big {
+      grid-row: 1 / 3;
+      grid-column: 1;
+    }
+
+    .grid-layout .cell-top-right {
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    .grid-layout .cell-bottom-right {
+      grid-row: 2;
+      grid-column: 2;
     }
 
     .col-right {
       padding: 1.5vw;
       padding-top: 33vh;
+    }
+
+    .project-desc {
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #000000;
+    }
+
+    .project-desc p + p {
+      margin-top: 1.2em;
     }
 
 
@@ -180,8 +224,20 @@
         padding: 1.5vh 4vw;
       }
 
-      .col-mid p {
-        padding-top: 40vh;
+      .col-mid > img {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .grid-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        aspect-ratio: auto !important;
+      }
+
+      .grid-layout img {
+        width: 100% !important;
+        height: auto !important;
       }
     }
   </style>
@@ -242,10 +298,26 @@
     </div>
 
     <div class="col-mid">
-      <p>under construction</p>
+      <img src="sp-big-ideas/idea-2/bubbles.png" alt="Life Between Bites bubbles">
+      <img src="sp-big-ideas/idea-2/bath-time.png" alt="Life Between Bites bath time">
+      <div class="grid-layout">
+        <img class="cell-big" src="sp-big-ideas/idea-2/crossword.png" alt="Life Between Bites crossword">
+        <img class="cell-top-right" src="sp-big-ideas/idea-2/puddles.png" alt="Life Between Bites puddles">
+        <img class="cell-bottom-right" src="sp-big-ideas/idea-2/bumps.png" alt="Life Between Bites bumps">
+      </div>
+      <img src="sp-big-ideas/idea-2/idea2social.png" alt="Life Between Bites social">
+      <img src="sp-big-ideas/idea-2/washes.png" alt="Life Between Bites washes">
     </div>
 
-    <div class="col-right"></div>
+    <div class="col-right">
+      <div class="project-desc">
+        <p>Life Between Bites is our second big idea.</p>
+        <p>Somewhere along the way, protein forgot to be joyful.</p>
+        <p>As consumers seek options that offer more than macros, we celebrate the many facets of full lives—energy, connection, and eccentricity—that Singing Pastures powers.</p>
+        <p>Protein culture assumes one objective, but she has many. We support her every moment.</p>
+        <p>The tone is joyful, absurd, and transcendent.</p>
+      </div>
+    </div>
 
   </div>
 
