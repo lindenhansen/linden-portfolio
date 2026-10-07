@@ -90,6 +90,7 @@
       display: block;
       width: 100%;
       height: auto;
+      cursor: pointer;
     }
 
     /* crossword (big, left) + puddles/bumps stacked right */
@@ -137,6 +138,43 @@
 
     .project-desc p + p {
       margin-top: 1.2em;
+    }
+
+    /* ── LIGHTBOX ─────────────────────────────────────────── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+    }
+
+    .lightbox-inner {
+      position: relative;
+      z-index: 1000;
+      max-width: 72vw;
+      max-height: 82vh;
+      overflow: hidden;
+    }
+
+    .lightbox-inner img {
+      display: block;
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      cursor: default;
     }
 
 
@@ -309,7 +347,40 @@
 
   </div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-overlay" id="lb-overlay"></div>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="">
+    </div>
+  </div>
+
   <script>
+    // Click-to-zoom lightbox
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const lbImg    = document.getElementById('lb-img');
+
+      function openImg(src) {
+        lbImg.src = src;
+        lightbox.classList.add('open');
+      }
+
+      function close() {
+        lightbox.classList.remove('open');
+      }
+
+      document.querySelectorAll('.col-mid img').forEach(img => {
+        img.addEventListener('click', () => openImg(img.src));
+      });
+
+      document.getElementById('lb-overlay').addEventListener('click', close);
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') close();
+      });
+    })();
+
     // Mobile nav toggle
     (function() {
       const hamburger = document.getElementById('hamburger');
