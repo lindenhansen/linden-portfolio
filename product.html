@@ -125,6 +125,8 @@
       color: #000000;
     }
 
+    .label-img { display: block; width: 200px; max-width: 100%; height: auto; }
+
 
     /* ── MOBILE ───────────────────────────────────────────── */
 
@@ -270,12 +272,12 @@
         <img src="product/R1-04081-0004.JPG" alt="On Call Café">
       </a>
 
-      <a href="https://fixaitions.com/" target="_blank" data-label="Fix-ai-tions">
+      <a href="https://fixaitions.com/" target="_blank" data-label="Fix-ai-tions" data-label-img="product/fixaitions-title.png">
         <img src="product/product-5-feet.png" alt="Fix-ai-tions">
       </a>
 
       <a href="askaway.html" data-label="Ask Away">
-        <img src="product/product-3.png" alt="Ask Away">
+        <img src="product/askaway-title.png" alt="Ask Away">
       </a>
 
       <a href="bopbop.html" data-label="BopBop">
@@ -295,7 +297,11 @@
     const label = document.getElementById('hover-label');
     document.querySelectorAll('.col-mid a').forEach(link => {
       link.addEventListener('mouseenter', () => {
-        label.textContent = link.dataset.label;
+        if (link.dataset.labelImg) {
+          label.innerHTML = '<img class="label-img" src="' + link.dataset.labelImg + '" alt="' + link.dataset.label + '">';
+        } else {
+          label.textContent = link.dataset.label;
+        }
       });
       link.addEventListener('mouseleave', () => {
         label.textContent = '';
